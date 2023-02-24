@@ -1,7 +1,9 @@
 package com.ibm.course.resources;
 
-import com.ibm.course.entities.Category;
-import com.ibm.course.services.CategoryService;
+import com.ibm.course.entities.Order;
+import com.ibm.course.entities.Product;
+import com.ibm.course.services.OrderService;
+import com.ibm.course.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,22 +13,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController //transforma a classe em web service rest
-@RequestMapping("/categories")
-public class CategoryResource {
+@RestController
+@RequestMapping("/products")
+public class ProductResource {
     @Autowired
-    private CategoryService service;
+    private ProductService productService;
 
 
     @GetMapping
-    public ResponseEntity<List<Category>> findAll(){
-        List<Category> list = service.findAll();
+    public ResponseEntity<List<Product>> findAll(){
+        List<Product> list = productService.findAll();
         return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> findById(@PathVariable Long id){
-        Category obj = service.findById(id);
+    public ResponseEntity<Product> findById(@PathVariable Long id){
+        Product obj = productService.findById(id);
         return ResponseEntity.ok(obj);
     }
 }

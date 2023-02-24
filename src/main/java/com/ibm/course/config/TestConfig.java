@@ -2,10 +2,12 @@ package com.ibm.course.config;
 
 import com.ibm.course.entities.Category;
 import com.ibm.course.entities.Order;
+import com.ibm.course.entities.Product;
 import com.ibm.course.entities.User;
 import com.ibm.course.entities.enums.OrderStatus;
 import com.ibm.course.repositories.CategoryRepository;
 import com.ibm.course.repositories.OrderRepository;
+import com.ibm.course.repositories.ProductRepository;
 import com.ibm.course.repositories.UserRepositroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -26,14 +28,24 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private CategoryRepository categoryRep;
 
+    @Autowired
+    private ProductRepository productRep;
     @Override
     public void run(String... args) throws Exception {
-        // Category
+        // Category e Product
         Category cat1 = new Category(null, "Electronics");
         Category cat2 = new Category(null, "Books");
         Category cat3 = new Category(null, "Computers");
 
+        Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+        Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+        Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+        Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+        Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+
+
         categoryRep.saveAll(Arrays.asList(cat1, cat2, cat3));
+        productRep.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 
         // Bloco spearado de User e Order. Porque eles tem associação entre si.
         User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
