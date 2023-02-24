@@ -1,5 +1,6 @@
 package com.ibm.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +22,9 @@ public class Category implements Serializable {
     private Long id;
     private String name;
 
-    @Transient //Essa notação impede que o JPA tente interpretar essa linha
+    //@Transient //Essa notação impede que o JPA tente interpretar essa linha
+    @JsonIgnore //Porque senão vai ficar com looping infinito quando chamarmos a rota no insomnia
+    @ManyToMany(mappedBy = "categories") //O nome que colocamos no mappedBy, é o nome da coleção que temos na classe product, ou seja, categories.
     private Set<Product> products = new HashSet<>();
 
     public Category(Long id, String name) {

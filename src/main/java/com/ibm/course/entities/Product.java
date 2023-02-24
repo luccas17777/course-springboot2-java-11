@@ -24,7 +24,12 @@ public class Product implements Serializable {
        private Double price;
        private String imgUrl;
 
-       @Transient
+       //@Transient //Essa notação impede que o JPA tente interpretar essa linha
+       @ManyToMany //Associação muitos para muitos. Quando isto acontece é criado uma tabela no banco que é simplesmente a junção de duas entidades.
+       @JoinTable(name = "tb_product_category", //name: o nome da tabela de a associação no banco de dados
+               joinColumns = @JoinColumn(name = "product_id"), //joinColumns: estamos falando qual o nome da chave estrangeira referente a tabela de produto, ou em termos técnicos, a classe dominate.
+               inverseJoinColumns = @JoinColumn(name = "category_id") //inverseJoinColumns: serve para definir qual a chave estrangeira da outra entidade, no caso, categoria.
+       )
        private Set<Category> categories = new HashSet<>();
 
        public Product(Long id, String name, String description, Double price, String imgUrl) {

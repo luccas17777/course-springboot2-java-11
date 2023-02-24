@@ -20,7 +20,7 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT") //Essa notação garante que este atributo do tipo Instant, seja mostrado, no Json de resposta, no formato de String do ISO 8601.
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT") //Essa notação garante que este atributo do tipo Instant, seja mostrado no Json de resposta no formato de String do ISO 8601.
     private Instant moment;
 
     private Integer orderStatus;

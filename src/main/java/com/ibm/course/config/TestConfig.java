@@ -17,21 +17,23 @@ import org.springframework.context.annotation.Profile;
 import java.time.Instant;
 import java.util.Arrays;
 
+//Esta classe é uma classe auxiliar que ira fazer algumas configurações na nossa aplicação.
+//O nome é TestConfig porque vai ser uma classe de configuração, especifica para o perfil de testes.
+//Esta classe esta servindo por enquanto para popular o nosso banco de dados com alguns objetos.
 @Configuration //Para dizer para o spring que essa é uma classe de configuração
-@Profile("test") // esse "teste" é o mesmo que esta no application properties
-public class TestConfig implements CommandLineRunner {
+@Profile("test") //Para dizer que esta classe vai ser uma configuração especifica para o perfil de testes nós utilizamos essa notação. esse "teste" é o mesmo que esta no application properties
+public class TestConfig implements CommandLineRunner { //CommandLineRunner é uma interface, e o método que temos que cumprir dessa interface é o run
     @Autowired
     private UserRepositroy userRepositroy;
     @Autowired
     private OrderRepository orderRep;
-
     @Autowired
     private CategoryRepository categoryRep;
-
     @Autowired
     private ProductRepository productRep;
+
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) throws Exception { // Sempre que a aplicação for iniciada, tudo que estiver dentro deste método será executado.
         // Category e Product
         Category cat1 = new Category(null, "Electronics");
         Category cat2 = new Category(null, "Books");
@@ -46,6 +48,16 @@ public class TestConfig implements CommandLineRunner {
 
         categoryRep.saveAll(Arrays.asList(cat1, cat2, cat3));
         productRep.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+
+        p1.getCategories().add(cat2);
+        p2.getCategories().add(cat1);
+        p2.getCategories().add(cat3);
+        p3.getCategories().add(cat3);
+        p4.getCategories().add(cat3);
+        p5.getCategories().add(cat2);
+
+        productRep.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+
 
         // Bloco spearado de User e Order. Porque eles tem associação entre si.
         User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");

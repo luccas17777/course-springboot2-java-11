@@ -25,7 +25,7 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
-    @JsonIgnore //Quando retornamos a resposta, esse JsonIgnore, ele vai ignorar ou desconsiderar o atributo ao qual nós o colocamos
+    @JsonIgnore //Quando retornamos a resposta, esse JsonIgnore, vai ignorar ou desconsiderar o atributo ao qual nós o colocamos.
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 
